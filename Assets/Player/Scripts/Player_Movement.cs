@@ -40,6 +40,7 @@ public class Player_Movement : MonoBehaviour
     void Start()
     {
         Player_Action_Controls.Gameplay.Jump.performed += Context => Jump();
+        Player_Action_Controls.Gameplay.Dash.performed += Context => Dash_Increase();
         Player_Animator.SetBool("Is_Walking", false);
 
     }
@@ -113,5 +114,16 @@ public class Player_Movement : MonoBehaviour
         {
             Player_Sprite_Renderer.flipX = true;
         }
+    }
+
+    private void Dash_Increase()
+    {
+        Move_Speed = Move_Speed * 1.3f;
+        Player_Action_Controls.Gameplay.Dash.canceled += Context => Dash_Decrease();
+    }
+
+    private void Dash_Decrease()
+    {
+        Move_Speed = Move_Speed / 1.3f;
     }
 }
